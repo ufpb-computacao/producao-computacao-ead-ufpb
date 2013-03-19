@@ -9,20 +9,18 @@
 <a href="https://github.com/edusantana/producao-computacao-ead-ufpb" target="_blank">o manual</a>.</p>
 
 
-<form name="myform" action="./cgi-bin/github.py" method="POST">
-  <b>E-mail ou nickname: </b>
-  <br  />
-  <input name="email" type="text" size="40" />
-  <br  /></br>
+<form name="myform" action="./cgi-bin/pull-pdf.py" method="POST">
 
   <b>Endereço https do repositório do git</b>: </br>Ex: https://github.com/edusantana/introducao-a-computacao-livro.git
   <br  />
   <input name="repositorio" type="text" size="80" />
   <br  /></br>
 
+<!--
   <input type="radio" name="acao" value="pull-pdf" checked>Baixar atualização e Gerar PDF<br/>
   <input type="radio" name="acao" value="delete">Apagar todos projetos do usuário<br/>
   <br  />
+-->
   <input type="submit" value="submit">
 
 </form>

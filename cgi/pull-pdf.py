@@ -52,31 +52,33 @@ output = output + urllib.unquote(gpullp.stdout.read())
 
 
 if os.path.exists(livro_asc):
-  # Gera pdf do asciidoc
   # -v -f pdf --icons -a docinfo1      --dblatex-opts "-T computacao"     livro.asc
+  output = output + "Gerando o livro (asciidoc - pdf)..."
   asciidocp = sub.Popen([A2X_BIN, "-v", "-f","pdf", "--icons",  "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   asciidocp.wait()
   output = output + urllib.unquote(asciidocp.stdout.read())
 
+  output = output +  "Gerando o livro (asciidoc - html chunked)..."
   chunkedp = sub.Popen([A2X_BIN, "-v", "-f","chunked", "--icons",  "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   chunkedp.wait()
   output = output + urllib.unquote(chunkedp.stdout.read())
 
 
 if os.path.exists(slides_asc):
-  # Gera slides do livro
+  output = output +   "Gerando slides do livro (asciidoc - html slides)..."
   asciidocp = sub.Popen([ASCIIDOC_BIN, "-v", "-b","slidy", "slides.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   asciidocp.wait()
   output = output + urllib.unquote(asciidocp.stdout.read())
   # FIXME: incluir os arquivos *.png do diretorio
   # http://stackoverflow.com/questions/9997048/python-subprocess-wildcard-usage
-  zipp = sub.Popen(["zip", "-v","-r", "slides.zip","images", "slides.html"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
-  zipp.wait()
-  output = output + urllib.unquote(zipp.stdout.read())
+  # zipp = sub.Popen(["zip", "-v","-r", "slides.zip","images", "slides.html"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
+  # zipp.wait()
+  # output = output + urllib.unquote(zipp.stdout.read())
 
 
 if os.path.exists(livro_tex):
-  #gera livro a partir do latex
+  output = output +  "Gerando o livro (latex - pdf)..."
+
   pdflatexp = sub.Popen(["pdflatex", "livro.tex"], cwd=diretorio_do_projeto, stdout=sub.PIPE, stderr=sub.STDOUT)
   pdflatexp.wait()
   output = output + urllib.unquote(pdflatexp.stdout.read())
@@ -86,6 +88,7 @@ print """\
 Content-Type: text/html\n
 <html><body>
 <p>Livros serao gerados aqui: <a href="../books">books</a> &gt;&gt; <a href="../books/%s">%s</a> &gt;&gt; <a href="../books/%s/%s">%s</a></p>
+<p><a href="../books/edusantana/producao-computacao-ead-ufpb/livro/livro.chunked/index.html" target="_blank">Manual</a> | <a href="javascript:history.back()">Voltar</a>
 <pre>
 %s
 </pre>

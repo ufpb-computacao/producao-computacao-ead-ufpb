@@ -16,6 +16,11 @@ repositorio  = form.getfirst("repositorio")			# Pull fname field data
 
 #repositorio = "https://github.com/edusantana/introducao-a-computacao-livro.git"
 WWWPATH = "/var/www/books/"
+ASCIIDOC_PATH = "/home/santana/ambiente/asciidoc-8.6.8/"
+A2X_BIN = ASCIIDOC_PATH+"a2x.py"
+ASCIIDOC_BIN=ASCIIDOC_PATH+"asciidoc.py"
+
+
 
 usuario=repositorio.split("/")[3]
 nome_do_projeto=repositorio.split("/")[4][:-4] # remove .git
@@ -49,13 +54,18 @@ output = output + urllib.unquote(gpullp.stdout.read())
 if os.path.exists(livro_asc):
   # Gera pdf do asciidoc
   # -v -f pdf --icons -a docinfo1      --dblatex-opts "-T computacao"     livro.asc
-  asciidocp = sub.Popen(["/home/santana/ambiente/asciidoc-8.6.8/a2x.py", "-v", "-f","pdf", "--icons",  "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
+  asciidocp = sub.Popen([A2X_BIN, "-v", "-f","pdf", "--icons",  "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   asciidocp.wait()
   output = output + urllib.unquote(asciidocp.stdout.read())
 
+  chunkedp = sub.Popen([A2X_BIN, "-v", "-f","chunked", "--icons",  "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
+  chunkedp.wait()
+  output = output + urllib.unquote(chunkedp.stdout.read())
+
+
 if os.path.exists(slides_asc):
   # Gera slides do livro
-  asciidocp = sub.Popen(["/home/santana/ambiente/asciidoc-8.6.8/asciidoc.py", "-v", "-b","slidy", "slides.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
+  asciidocp = sub.Popen([ASCIIDOC_BIN, "-v", "-b","slidy", "slides.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   asciidocp.wait()
   output = output + urllib.unquote(asciidocp.stdout.read())
   # FIXME: incluir os arquivos *.png do diretorio

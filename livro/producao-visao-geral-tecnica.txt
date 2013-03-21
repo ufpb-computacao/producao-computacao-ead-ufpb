@@ -1,0 +1,47 @@
+digraph automata_0 {
+  rankdir=LR;
+  size ="8.5, 11";
+  node [shape = box];
+
+  necessidade[label="Necessidade de novos livros \n(Coordenação)"];
+  processo_seletivo [label="Processo seletivo de autores\n(Coordenação)"];
+  criacao_do_repositorio [label="Criação de repositórios para os livros\n(Editor)"];
+  capacitacao [label="Capacitação dos autores\n(Editor)"];
+  fork_repositorio [label="Fork do repositório\n(Autor)"];
+  escreve [label="Escreve conteúdo\n(Autor)"];
+  pull_request [label="Pull request\n(Autor)"];
+  aceita_request [label="Aceita pull\n(Editor)"];
+
+  fork_revisor  [label="Fork do repositório\n(Revisor)"];
+  revisao_do_revisor  [label="Realiza revisão\n(Revisor)"];
+  pull_request_revisor [label="Pull request\n(Revisor)"];
+  aceita_revisao [label="Aceita pull\n(Editor)"];
+  gera_edicao [label="Gera edição\n(Editor)"];
+
+  fork_contribuidor  [label="Fork do repositório\n(Contribuidor)"];
+  colaboracao  [label="Realiza contribuição\n(Contribuidor)"];
+  pull_request_contribuidor [label="Pull request\n(Contribuidor)"];
+  colaboracao_aceita [label="Aceita pull\n(Editor)"];
+
+  atualiza_errata [label="Atualiza errata\n(Editor)"];
+
+
+  necessidade -> processo_seletivo -> criacao_do_repositorio -> capacitacao;
+  capacitacao -> fork_repositorio -> escreve -> pull_request;
+  pull_request -> aceita_request -> fork_revisor;
+  fork_revisor -> revisao_do_revisor -> pull_request_revisor -> aceita_revisao;
+  aceita_revisao -> gera_edicao -> fork_contribuidor;
+
+
+
+  fork_contribuidor -> colaboracao -> pull_request_contribuidor -> colaboracao_aceita
+
+  colaboracao_aceita -> atualiza_errata
+
+
+
+
+
+  {rank=same; necessidade fork_repositorio fork_revisor, fork_contribuidor}
+
+}

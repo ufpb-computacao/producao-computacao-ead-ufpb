@@ -3,12 +3,13 @@
 Este projeto reune a documentação sobre o processo de produção dos livros,
 ele é dividio em várias seções.
 
-
 === Processo geral
 
 ==== Fluxo de trabalho
 
 ==== Ferramentas utilizadas no processo
+
+Usar comando `fold` para dividir arquivos.
 
 === Iniciando um novo livro
 

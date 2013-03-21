@@ -54,7 +54,7 @@ output = output + urllib.unquote(gpullp.stdout.read())
 if os.path.exists(livro_asc):
   # -v -f pdf --icons -a docinfo1      --dblatex-opts "-T computacao"     livro.asc
   output = output + "Gerando o livro (asciidoc - pdf)..."
-  asciidocp = sub.Popen([A2X_BIN, "-v", "-f","pdf", "--icons",  "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
+  asciidocp = sub.Popen([A2X_BIN, "-v", "-f","pdf", "--icons", "-a", "docinfo1", "--dblatex-opts", "-T computacao" ,"livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   asciidocp.wait()
   output = output + urllib.unquote(asciidocp.stdout.read())
 

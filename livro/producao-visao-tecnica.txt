@@ -35,6 +35,6 @@ digraph automata_0 {
 
   fork_contribuidor -> colaboracao -> pull_request_contribuidor -> colaboracao_aceita
   colaboracao_aceita -> atualiza_errata
-  {rank=same; necessidade fork_repositorio fork_revisor, fork_contribuidor}
+  {rank=same; necessidade, fork_repositorio, fork_revisor, fork_contribuidor}
 
 }

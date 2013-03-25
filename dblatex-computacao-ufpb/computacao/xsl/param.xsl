@@ -3,6 +3,8 @@
 
 <!-- Add backmatter to the default layout -->
 <xsl:param name="doc.layout">coverpage toc frontmatter mainmatter backmatter index </xsl:param>
+<xsl:param name="doc.collab.show">1</xsl:param>
+<xsl:param name="latex.output.revhistory">0</xsl:param>
 
 
 <!-- DB2LaTeX has its own admonition graphics -->
@@ -31,6 +33,7 @@
 <xsl:param name="page.margin.outer">2.0cm</xsl:param>
 <xsl:param name="geometry.options"/>
 
+<xsl:param name="line-height">2.0</xsl:param>
 
 
 

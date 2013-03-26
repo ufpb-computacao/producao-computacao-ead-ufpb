@@ -23,7 +23,10 @@ ASCIIDOC_BIN=ASCIIDOC_PATH+"asciidoc.py"
 
 
 usuario=repositorio.split("/")[3]
-nome_do_projeto=repositorio.split("/")[4][:-4] # remove .git
+if (repositorio.endswith("git")):
+  nome_do_projeto=repositorio.split("/")[4][:-4] # remove .git
+else:
+  nome_do_projeto=repositorio.split("/")[4]
 
 diretorio_do_usuario = WWWPATH + usuario + "/"
 diretorio_do_projeto = diretorio_do_usuario + nome_do_projeto + "/"

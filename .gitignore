@@ -4,6 +4,7 @@ livro/AAPDIR
 livro/*.chunked
 livro/*.pdf
 livro/*.png
+livro/livro.xml
 
 # Arquivos gerados pelo latex
 *.pdf

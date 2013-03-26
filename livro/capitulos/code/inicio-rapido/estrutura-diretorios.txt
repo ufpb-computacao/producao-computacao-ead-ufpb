@@ -1,19 +1,19 @@
 |-- cgi/
 |-- dblatex-computacao-ufpb/
-|-- estrutura-inicial/
+|-- estrutura-inicial/<1>
 |-- livro/
-|   |-- capitulos/ <1>
+|   |-- capitulos/ <2>
 |   |   `-- editoracao.asc
 |   |   `-- graficos.asc
-|   |   `-- inicio-rapido.asc <2>
-|   |   `-- pessoas.asc <3>
+|   |   `-- inicio-rapido.asc <3>
+|   |   `-- pessoas.asc <4>
 |   |   `-- projetos.asc
 |   |   `-- usuario.asc
-|   |-- images/ <4>
-|   |-- slides/ <5>
-|   |-- livro.asc <6>
-|   |-- docinfo.xml <7>
-|   `-- slides.asc <5>
+|   |-- images/ <5>
+|   |-- slides/ <6>
+|   |-- livro.asc <7>
+|   |-- docinfo.xml <8>
+|   `-- slides.asc <6>
 |-- livro/
 `-- README.asciidoc
 

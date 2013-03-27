@@ -1,7 +1,8 @@
 #!/usr/bin/python
+
 import cgi
 import cgitb
-
+import shutil
 
 # The subprocess module is new in 2.4
 import os, urllib, subprocess as sub
@@ -54,21 +55,39 @@ gpullp.wait()
 output = output + urllib.unquote(gpullp.stdout.read())
 
 
+livro_dir =diretorio_do_projeto+"livro/"
 if os.path.exists(livro_asc):
+  pdf_file = livro_dir+"livro.pdf"
+  chunked_dir = livro_dir+"livro.chunked"
+
+  output = output + "\nRemovendo versoes anteriores...\n"
+  if os.path.exists(chunked_dir):
+    shutil.rmtree(chunked_dir)
+  if os.path.exists(pdf_file):
+    os.remove(pdf_file)
+
   # -v -f pdf --icons -a docinfo1      --dblatex-opts "-T computacao"     livro.asc
-  output = output + "Gerando o livro (asciidoc - pdf)..."
+  output = output + "\nGerando o livro (asciidoc - pdf)...\n"
   asciidocp = sub.Popen([A2X_BIN, "-v", "-f","pdf", "--icons", "-a", "docinfo1", "-a", "lang=pt-BR", "-d", "book", "--dblatex-opts", "-T computacao -P latex.babel.language=brazilian" ,"livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   asciidocp.wait()
   output = output + urllib.unquote(asciidocp.stdout.read())
 
-  output = output +  "Gerando o livro (asciidoc - html chunked)..."
+
+
+  output = output +  "\nGerando o livro (asciidoc - html chunked)...\n"
   chunkedp = sub.Popen([A2X_BIN, "-v", "-f","chunked", "--icons",  "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   chunkedp.wait()
   output = output + urllib.unquote(chunkedp.stdout.read())
 
 
 if os.path.exists(slides_asc):
-  output = output +   "Gerando slides do livro (asciidoc - html slides)..."
+  slides_html = livro_dir + "slides.html"
+  if os.path.exists(slides_html):
+    output = output + "\nRemovendo slides anteriores...\n"
+    os.remove(slides_html)
+
+
+  output = output +   "\nGerando slides do livro (asciidoc - html slides)...\n"
   asciidocp = sub.Popen([ASCIIDOC_BIN, "-v", "-b","slidy", "slides.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   asciidocp.wait()
   output = output + urllib.unquote(asciidocp.stdout.read())
@@ -80,7 +99,14 @@ if os.path.exists(slides_asc):
 
 
 if os.path.exists(livro_tex):
-  output = output +  "Gerando o livro (latex - pdf)..."
+  livro_dir =diretorio_do_projeto
+  pdf_file = livro_dir+"livro.pdf"
+  if os.path.exists(pdf_file):
+    output = output + "\nRemovendo versoes anteriores...\n"
+    os.remove(pdf_file)
+
+
+  output = output +  "\nGerando o livro (latex - pdf)...\n"
 
   pdflatexp = sub.Popen(["pdflatex", "livro.tex"], cwd=diretorio_do_projeto, stdout=sub.PIPE, stderr=sub.STDOUT)
   pdflatexp.wait()

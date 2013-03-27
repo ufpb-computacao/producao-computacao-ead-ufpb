@@ -8,3 +8,6 @@ livro/livro.xml
 
 # Arquivos gerados pelo latex
 *.pdf
+livro.aux
+livro.log
+

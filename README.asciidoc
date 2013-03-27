@@ -1,36 +1,7 @@
 == Processo de Produção do curso Licenciatura em Computação a distância da UFPB
 
-Este projeto reune a documentação sobre o processo de produção dos livros,
-ele é dividio em várias seções.
+Manual on-line :: 
+  http://150.165.237.17/books/edusantana/producao-computacao-ead-ufpb/livro/livro.chunked/index.html (recomendado)
 
-=== Processo geral
-
-==== Fluxo de trabalho
-
-==== Ferramentas utilizadas no processo
-
-Usar comando `fold` para dividir arquivos.
-
-=== Iniciando um novo livro
-
-=== Escrevendo o livro
-
-=== Gerando edição para impressão
-
-==== Revisando o livro
-
-==== Fechando versão para impressão
-
-=== Erratas dos livros
-
-==== Onde encontrar a errata
-
-==== Contribuindo com correções
-
-==== Contribuindo com indicações de erros
-
-
-=== licença
-
-
-
+Manual em PDF ::
+  http://150.165.237.17/books/edusantana/producao-computacao-ead-ufpb/livro/livro.pdf (atualizado com frequência)

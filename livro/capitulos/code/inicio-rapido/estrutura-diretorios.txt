@@ -3,17 +3,18 @@
 |-- estrutura-inicial/<1>
 |-- livro/
 |   |-- capitulos/ <2>
+|   |   `-- code/ <3>
 |   |   `-- editoracao.asc
 |   |   `-- graficos.asc
-|   |   `-- inicio-rapido.asc <3>
-|   |   `-- pessoas.asc <4>
+|   |   `-- inicio-rapido.asc <4>
+|   |   `-- pessoas.asc <5>
 |   |   `-- projetos.asc
 |   |   `-- usuario.asc
-|   |-- images/ <5>
-|   |-- slides/ <6>
-|   |-- livro.asc <7>
-|   |-- docinfo.xml <8>
-|   `-- slides.asc <6>
+|   |-- images/ <6>
+|   |-- slides/ <7>
+|   |-- livro.asc <8>
+|   |-- docinfo.xml <9>
+|   `-- slides.asc <7>
 |-- livro/
 `-- README.asciidoc
 

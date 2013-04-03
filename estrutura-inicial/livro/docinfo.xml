@@ -31,14 +31,14 @@
         </para>
       </authorblurb>
     </author>
+  </authorgroup>
 
-    <editor>
+  <othercredit>
       <firstname>Eduardo</firstname>
       <surname>Medeiros</surname>
       <othername>Santana</othername>
-    </editor>
-
-  </authorgroup>
+    <contrib>Editor</contrib>
+  </othercredit>
   
   <copyright>
     <year>2013</year>

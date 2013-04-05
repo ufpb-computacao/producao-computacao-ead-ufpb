@@ -4,6 +4,7 @@ livro/AAPDIR
 livro/*.chunked
 livro/*.pdf
 livro/*.png
+livro/*.svg
 livro/*.zip
 livro/livro.xml
 livro/slides.html

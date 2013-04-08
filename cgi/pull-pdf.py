@@ -68,14 +68,14 @@ if os.path.exists(livro_asc):
 
   # -v -f pdf --icons -a docinfo1      --dblatex-opts "-T computacao"     livro.asc
   output = output + "\nGerando o livro (asciidoc - pdf)...\n"
-  asciidocp = sub.Popen([A2X_BIN, "-v", "-f","pdf", "--icons", "-a", "docinfo1", "-a", "lang=pt-BR", "-d", "book", "--dblatex-opts", "-T computacao -P latex.babel.language=brazilian" ,"livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
+  asciidocp = sub.Popen([A2X_BIN, "-v", "-f","pdf", "--icons", "-a", "docinfo1", "-a", "lang=pt-BR", "-d", "book", "--dblatex-opts", "-T computacao -P latex.babel.language=brazilian","-a livro-pdf" ,"livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   asciidocp.wait()
   output = output + urllib.unquote(asciidocp.stdout.read())
 
 
 
   output = output +  "\nGerando o livro (asciidoc - html chunked)...\n"
-  chunkedp = sub.Popen([A2X_BIN, "-v", "-f","chunked", "--icons",  "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
+  chunkedp = sub.Popen([A2X_BIN, "-v", "-f","chunked", "--icons",  "-a livro-html", "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   chunkedp.wait()
   output = output + urllib.unquote(chunkedp.stdout.read())
 

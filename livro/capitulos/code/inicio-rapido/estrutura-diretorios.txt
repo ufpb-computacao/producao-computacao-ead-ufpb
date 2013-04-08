@@ -14,7 +14,8 @@
 |   |-- slides/ <7>
 |   |-- livro.asc <8>
 |   |-- docinfo.xml <9>
-|   `-- slides.asc <7>
+|   |-- slides.asc <7>
+|   `-- videos/ <10>
 |-- livro/
 `-- README.asciidoc
 

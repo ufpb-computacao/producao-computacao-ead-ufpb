@@ -118,15 +118,20 @@ if os.path.exists(livro_tex):
   pdflatexp.wait()
   output = output + urllib.unquote(pdflatexp.stdout.read())
 
+link_books = "../books/"
+link_usuario  = link_books + usuario + "/"
+link_projeto = link_usuario+nome_do_projeto+"/"
+link_pdf  = link_projeto+"livro/livro.pdf"
+link_html = link_projeto+"/livro/livro.chunked/index.html"
 
 print """\
-Content-Type: text/html\n
+Content-Type: text/html;charset=utf-8\n
 <html><body>
-<p>Livros serao gerados aqui: <a href="../books">books</a> &gt;&gt; <a href="../books/%s">%s</a> &gt;&gt; <a href="../books/%s/%s">%s</a></p>
-<p><a href="../books/edusantana/producao-computacao-ead-ufpb/livro/livro.chunked/index.html" target="_blank">Manual</a> | <a href="javascript:history.back()">Voltar</a>
+<p>Livros serao gerados aqui: <a href="../books">books</a> &gt;&gt; <a href="../books/%s">%s</a> &gt;&gt; <a href="../books/%s/%s">%s</a> </p>
+<p><a href="%s" target="_blank">PDF</a> | <a href="%s" target="_blank">HTML</a> | <a href="../books/edusantana/producao-computacao-ead-ufpb/livro/livro.chunked/index.html" target="_blank">Manual</a> | <a href="javascript:history.back()">Voltar</a>
 <pre>
 %s
 </pre>
 </body></html>
-""" % (usuario, usuario, usuario, nome_do_projeto, nome_do_projeto, output)
+""" % (usuario, usuario, usuario, nome_do_projeto, nome_do_projeto, link_pdf, link_html, output)
 

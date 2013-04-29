@@ -12,7 +12,7 @@ cgitb.enable()
 
 # Retrieve form fields
 form   = cgi.FieldStorage()			# Get POST data
-repositorio  = form.getfirst("repositorio")			# Pull fname field data
+repositorio  = form.getfirst("repositorio").strip()			# Pull fname field data
 
 
 #repositorio = "https://github.com/edusantana/introducao-a-computacao-livro.git"

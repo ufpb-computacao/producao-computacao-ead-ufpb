@@ -20,7 +20,7 @@ WWWPATH = "/var/www/books/"
 ASCIIDOC_PATH = "/home/santana/ambiente/asciidoc-8.6.8/"
 A2X_BIN = ASCIIDOC_PATH+"a2x.py"
 ASCIIDOC_BIN=ASCIIDOC_PATH+"asciidoc.py"
-
+PDFTK_BIN = "/usr/bin/pdftk"
 
 
 usuario=repositorio.split("/")[3]
@@ -58,7 +58,9 @@ output = output + urllib.unquote(gpullp.stdout.read())
 livro_dir =diretorio_do_projeto+"livro/"
 if os.path.exists(livro_asc):
   pdf_file = livro_dir+"livro.pdf"
+  pdf_temp = livro_dir+"livro.tmp.pdf"
   chunked_dir = livro_dir+"livro.chunked"
+  editora_pdf = livro_dir+"editora/editora.pdf"
 
   output = output + "\nImprimindo TODO, FIXME e XXX...\n"
   asciidocp = sub.Popen(["grep", "-A","1","-B","1","-n","-r","-e","TODO","-e","FIXME","."], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
@@ -78,7 +80,13 @@ if os.path.exists(livro_asc):
   asciidocp.wait()
   output = output + urllib.unquote(asciidocp.stdout.read())
 
-
+  if os.path.exists(pdf_file):
+    if os.path.exists(editora_pdf):
+      os.rename(pdf_file, pdf_temp)
+      asciidocp = sub.Popen([PDFTK_BIN, editora_pdf, pdf_temp, "cat", "output", pdf_file], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
+      asciidocp.wait()
+      os.remove(pdf_temp)
+    output = output + "\n ----- LIVRO GERADO COM SUCESSO! -----\n"
 
   output = output +  "\nGerando o livro (asciidoc - html chunked)...\n"
   chunkedp = sub.Popen([A2X_BIN, "-v", "-f","chunked", "--icons",  "-a livro-html", "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)

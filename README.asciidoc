@@ -1,7 +1,7 @@
 == Processo de Produção do curso Licenciatura em Computação a distância da UFPB
 
 Manual on-line :: 
-  http://150.165.237.17/books/edusantana/producao-computacao-ead-ufpb/livro/livro.chunked/index.html (recomendado)
+  http://producao.virtual.ufpb.br/books/edusantana/producao-computacao-ead-ufpb/livro/livro.chunked/index.html (recomendado)
 
 Manual em PDF ::
-  http://150.165.237.17/books/edusantana/producao-computacao-ead-ufpb/livro/livro.pdf (atualizado com frequência)
+  http://producao.virtual.ufpb.br/books/edusantana/producao-computacao-ead-ufpb/livro/livro.pdf (atualizado com frequência)

@@ -152,6 +152,9 @@ Tables
                colspan: 1...
                rowspan: 1...
 
+Mais detalhes sobre tabela:
+http://www.methods.co.nz/asciidoc/newtables.html
+
 Bulleted lists
 --------------
   - item text

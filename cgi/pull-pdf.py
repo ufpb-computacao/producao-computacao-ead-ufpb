@@ -53,6 +53,7 @@ if not os.path.exists(diretorio_do_projeto):
 gpullp = sub.Popen(["git", "pull"], cwd=diretorio_do_projeto, stdout=sub.PIPE, stderr=sub.STDOUT)
 gpullp.wait()
 output = output + urllib.unquote(gpullp.stdout.read())
+status = ""
 
 
 livro_dir =diretorio_do_projeto+"livro/"
@@ -86,7 +87,7 @@ if os.path.exists(livro_asc):
       asciidocp = sub.Popen([PDFTK_BIN, editora_pdf, pdf_temp, "cat", "output", pdf_file], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
       asciidocp.wait()
       os.remove(pdf_temp)
-    output = output + "\n ----- LIVRO GERADO COM SUCESSO! -----\n"
+    status = "\n ----- LIVRO GERADO COM SUCESSO! -----\n"
 
   output = output +  "\nGerando o livro (asciidoc - html chunked)...\n"
   chunkedp = sub.Popen([A2X_BIN, "-v", "-f","chunked", "--icons",  "-a livro-html", "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
@@ -139,7 +140,8 @@ Content-Type: text/html;charset=utf-8\n
 <p><a href="%s" target="_blank">PDF</a> | <a href="%s" target="_blank">HTML</a> | <a href="../books/edusantana/producao-computacao-ead-ufpb/livro/livro.chunked/index.html" target="_blank">Manual</a> | <a href="javascript:history.back()">Voltar</a>
 <pre>
 %s
+%s
 </pre>
 </body></html>
-""" % (usuario, usuario, usuario, nome_do_projeto, nome_do_projeto, link_pdf, link_html, output)
+""" % (usuario, usuario, usuario, nome_do_projeto, nome_do_projeto, link_pdf, link_html, status, output)
 

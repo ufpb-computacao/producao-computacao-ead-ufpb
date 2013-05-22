@@ -64,7 +64,7 @@ if os.path.exists(livro_asc):
   editora_pdf = livro_dir+"editora/editora.pdf"
 
   output = output + "\nImprimindo TODO, FIXME e XXX...\n"
-  asciidocp = sub.Popen(["grep", "-A","1","-B","1","-n","-r","-e","TODO","-e","FIXME","."], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
+  asciidocp = sub.Popen(["grep", "-A","3","-B","0","-n","-r","-e","TODO","-e","FIXME","."], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   asciidocp.wait()
   output = output + urllib.unquote(asciidocp.stdout.read())
 

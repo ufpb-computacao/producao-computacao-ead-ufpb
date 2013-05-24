@@ -35,6 +35,8 @@ diretorio_livro = diretorio_do_projeto + 'livro' + "/"
 livro_tex = diretorio_do_projeto + 'livro.tex'
 livro_asc = diretorio_livro + 'livro.asc'
 slides_asc = diretorio_livro + 'slides.asc'
+ignore_html_file = diretorio_livro + 'ignore-html'
+ignore_slide_file = diretorio_livro + 'ignore-slide'
 
 # Retrieve the command from the query string
 # and unencode the escaped %xx chars
@@ -75,6 +77,8 @@ if os.path.exists(livro_asc):
   if os.path.exists(pdf_file):
     os.remove(pdf_file)
 
+# --xsltproc-opts "--stringparam generate.section.toc.level 1 --stringparam toc.section.depth 3"
+
   # -v -f pdf --icons -a docinfo1      --dblatex-opts "-T computacao"     livro.asc
   output = output + "\nGerando o livro (asciidoc - pdf)...\n"
   asciidocp = sub.Popen([A2X_BIN, "-v", "-f","pdf", "--icons", "-a", "docinfo1", "-a", "lang=pt-BR", "-d", "book", "--dblatex-opts", "-T computacao -P latex.babel.language=brazilian","-a livro-pdf" ,"livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
@@ -89,13 +93,14 @@ if os.path.exists(livro_asc):
       os.remove(pdf_temp)
     status = "\n ----- LIVRO GERADO COM SUCESSO! -----\n"
 
+if os.path.exists(livro_asc) and not not os.path.exists(ignore_html_file):
   output = output +  "\nGerando o livro (asciidoc - html chunked)...\n"
   chunkedp = sub.Popen([A2X_BIN, "-v", "-f","chunked", "--icons",  "-a livro-html", "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   chunkedp.wait()
   output = output + urllib.unquote(chunkedp.stdout.read())
 
 
-if os.path.exists(slides_asc):
+if os.path.exists(slides_asc) and not os.path.exists(ignore_slide_file):
   slides_html = livro_dir + "slides.html"
   if os.path.exists(slides_html):
     output = output + "\nRemovendo slides anteriores...\n"
@@ -141,7 +146,8 @@ Content-Type: text/html;charset=utf-8\n
 <pre>
 %s
 %s
+%s
 </pre>
 </body></html>
-""" % (usuario, usuario, usuario, nome_do_projeto, nome_do_projeto, link_pdf, link_html, status, output)
+""" % (usuario, usuario, usuario, nome_do_projeto, nome_do_projeto, link_pdf, link_html, status, output, status)
 

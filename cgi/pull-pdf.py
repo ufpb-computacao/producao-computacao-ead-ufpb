@@ -35,8 +35,8 @@ diretorio_livro = diretorio_do_projeto + 'livro' + "/"
 livro_tex = diretorio_do_projeto + 'livro.tex'
 livro_asc = diretorio_livro + 'livro.asc'
 slides_asc = diretorio_livro + 'slides.asc'
-ignore_html_file = diretorio_livro + 'ignore-html'
-ignore_slide_file = diretorio_livro + 'ignore-slide'
+ignore_html_file = diretorio_do_projeto + 'ignore-html'
+ignore_slide_file = diretorio_do_projeto + 'ignore-slide'
 
 # Retrieve the command from the query string
 # and unencode the escaped %xx chars

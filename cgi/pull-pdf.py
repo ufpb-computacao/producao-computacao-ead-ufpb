@@ -93,7 +93,7 @@ if os.path.exists(livro_asc):
       os.remove(pdf_temp)
     status = "\n ----- LIVRO GERADO COM SUCESSO! -----\n"
 
-if os.path.exists(livro_asc) and not not os.path.exists(ignore_html_file):
+if os.path.exists(livro_asc) and not os.path.exists(ignore_html_file):
   output = output +  "\nGerando o livro (asciidoc - html chunked)...\n"
   chunkedp = sub.Popen([A2X_BIN, "-v", "-f","chunked", "--icons",  "-a livro-html", "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   chunkedp.wait()

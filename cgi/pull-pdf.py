@@ -57,7 +57,11 @@ if not os.path.exists(diretorio_do_projeto):
 gpullp = sub.Popen(["git", "pull"], cwd=diretorio_do_projeto, stdout=sub.PIPE, stderr=sub.STDOUT)
 gpullp.wait()
 output = output + urllib.unquote(gpullp.stdout.read())
-status = ""
+
+
+datep = sub.Popen(["date", "+DATE: %m/%d/%y%nTIME: %H:%M:%S"], cwd=diretorio_do_projeto, stdout=sub.PIPE, stderr=sub.STDOUT)
+datep.wait()
+status = urllib.unquote(datep.stdout.read())
 
 
 livro_dir =diretorio_do_projeto+"livro/"
@@ -93,7 +97,7 @@ if os.path.exists(livro_asc):
       asciidocp = sub.Popen([PDFTK_BIN, editora_pdf, pdf_temp, "cat", "output", pdf_file], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
       asciidocp.wait()
       os.remove(pdf_temp)
-    status = "\n ----- LIVRO GERADO COM SUCESSO! -----\n"
+    status = status + "\n ----- LIVRO GERADO COM SUCESSO! -----\n"
 
 if os.path.exists(livro_asc) and not os.path.exists(ignore_html_file):
   output = output +  "\nGerando o livro (asciidoc - html chunked)...\n"

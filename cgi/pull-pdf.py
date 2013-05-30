@@ -37,6 +37,7 @@ diretorio_livro = diretorio_do_projeto + 'livro' + "/"
 livro_tex = diretorio_do_projeto + 'livro.tex'
 livro_asc = diretorio_livro + 'livro.asc'
 slides_asc = diretorio_livro + 'slides.asc'
+ignore_pdf_file = diretorio_do_projeto + 'ignore-pdf'
 ignore_html_file = diretorio_do_projeto + 'ignore-html'
 ignore_slide_file = diretorio_do_projeto + 'ignore-slide'
 
@@ -85,13 +86,15 @@ if os.path.exists(livro_asc):
 
 # --xsltproc-opts "--stringparam generate.section.toc.level 1 --stringparam toc.section.depth 3"
 
+if os.path.exists(livro_asc) and not os.path.exists(ignore_pdf_file):
   # -v -f pdf --icons -a docinfo1      --dblatex-opts "-T computacao"     livro.asc
   output = output + "\nGerando o livro (asciidoc - pdf)...\n"
   asciidocp = sub.Popen([A2X_BIN, "-v", "-f","pdf", "--icons", "-a", "docinfo1", "-a", "lang=pt-BR", "-d", "book", "--dblatex-opts", "-T computacao -P latex.babel.language=brazilian","-a livro-pdf" ,"livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   asciidocp.wait()
   output = output + urllib.unquote(asciidocp.stdout.read())
 
-  if os.path.exists(pdf_file):
+
+  if os.path.exists(pdf_file) and not os.path.exists(ignore_pdf_file):
     if os.path.exists(editora_pdf):
       os.rename(pdf_file, pdf_temp)
       asciidocp = sub.Popen([PDFTK_BIN, editora_pdf, pdf_temp, "cat", "output", pdf_file], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)

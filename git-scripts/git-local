@@ -1,0 +1,3 @@
+MENSAGEM=$1
+
+git commit -a -m "$MENSAGEM"; git push; curl http://localhost/cgi-bin/pull-pdf.py?repositorio=`git config --get remote.origin.url`; play ~/beep.mp3

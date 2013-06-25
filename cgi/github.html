@@ -11,24 +11,29 @@
 
 <form name="myform" action="./cgi-bin/pull-pdf.py" method="POST">
 
-  <b>Endereço https do repositório do git</b>: </br>Ex: https://github.com/edusantana/introducao-a-computacao-livro
+  <b>Endereço https do repositório do git</b>: </br>https://github.com/edusantana/introducao-a-computacao-livro (exemplo)
   <br  />
   <input name="repositorio" type="text" size="80" />
   <br  /><br/>
-
 <!--
   <input type="radio" name="acao" value="pull-pdf" checked>Baixar atualização e Gerar PDF<br/>
   <input type="radio" name="acao" value="delete">Apagar todos projetos do usuário<br/>
   <br  />
 -->
   <input type="submit" value="Gerar PDF, HTML e Slides">
-
 </form>
 
-<p>Você pode encontrar <a href="https://github.com/edusantana?tab=repositories">os repositórios oficiais dos livros aqui</a>.
+<h2>Gerar PDF de Capítulo</h2>
+<form name="myform" action="./cgi-bin/capitulo.py" method="POST">
+
+  <b>Link do arquivo do capítulo</b>: </br>https://github.com/edusantana/introducao-a-computacao-livro/blob/master/livro/capitulos/historia-do-computador.asc
+  <br  />
+  <input name="capituloLink" type="text" size="80" />
+  <br  /><br/>
+  <input type="submit" value="Gerar PDF do Capítulo">
+</form>
 
 <p>Asciidoc <a href="https://raw.github.com/edusantana/producao-computacao-ead-ufpb/master/estrutura-inicial/livro/capitulos/asciidoc-syntax.txt" target="_blank">syntax</a> & <a href="https://raw.github.com/edusantana/producao-computacao-ead-ufpb/master/estrutura-inicial/livro/capitulos/asciidoc-exemplos.asc" target="_blank">exemplos</a></p>
-
 
 </body>
 </html>

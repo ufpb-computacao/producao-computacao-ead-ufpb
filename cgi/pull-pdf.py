@@ -6,13 +6,22 @@ import shutil
 
 # The subprocess module is new in 2.4
 import os, urllib, subprocess as sub
-
-
 cgitb.enable()
 
 # Retrieve form fields
 form   = cgi.FieldStorage()			# Get POST data
 repositorio  = form.getfirst("repositorio").strip()			# Pull fname field data
+
+if form.getvalue('pdf'):
+	build_pdf = 1
+else:
+	build_pdf = False
+if form.getvalue('html'):
+	build_html = 1
+else:
+	build_html = False
+
+
 if repositorio.startswith("git@github.com:"):
   #repositorio = git@github.com:edusantana/producao-computacao-ead-ufpb.git
   repositorio = "https://github.com/" + repositorio[15:-4]
@@ -34,12 +43,7 @@ else:
 diretorio_do_usuario = WWWPATH + usuario + "/"
 diretorio_do_projeto = diretorio_do_usuario + nome_do_projeto + "/"
 diretorio_livro = diretorio_do_projeto + 'livro' + "/"
-livro_tex = diretorio_do_projeto + 'livro.tex'
 livro_asc = diretorio_livro + 'livro.asc'
-slides_asc = diretorio_livro + 'slides.asc'
-ignore_pdf_file = diretorio_do_projeto + 'ignore-pdf'
-ignore_html_file = diretorio_do_projeto + 'ignore-html'
-ignore_slide_file = diretorio_do_projeto + 'ignore-slide'
 
 # Retrieve the command from the query string
 # and unencode the escaped %xx chars
@@ -86,7 +90,7 @@ if os.path.exists(livro_asc):
 
 # --xsltproc-opts "--stringparam generate.section.toc.level 1 --stringparam toc.section.depth 3"
 
-if os.path.exists(livro_asc) and not os.path.exists(ignore_pdf_file):
+if os.path.exists(livro_asc) and build_pdf:
   # -v -f pdf --icons -a docinfo1      --dblatex-opts "-T computacao"     livro.asc
   output = output + "\nGerando o livro (asciidoc - pdf)...\n"
   asciidocp = sub.Popen([A2X_BIN, "-v", "-f","pdf", "--icons", "-a", "docinfo1", "-a", "lang=pt-BR", "-d", "book", "--dblatex-opts", "-T computacao -P latex.babel.language=brazilian","-a livro-pdf" ,"livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
@@ -94,52 +98,21 @@ if os.path.exists(livro_asc) and not os.path.exists(ignore_pdf_file):
   output = output + urllib.unquote(asciidocp.stdout.read())
 
 
-  if os.path.exists(pdf_file) and not os.path.exists(ignore_pdf_file):
+  if os.path.exists(pdf_file) and build_pdf:
     if os.path.exists(editora_pdf):
       os.rename(pdf_file, pdf_temp)
       asciidocp = sub.Popen([PDFTK_BIN, editora_pdf, pdf_temp, "cat", "output", pdf_file], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
       asciidocp.wait()
       os.remove(pdf_temp)
-    status = status + "\n ----- LIVRO GERADO COM SUCESSO! -----\n"
+    status = status + "\n ----- LIVRO PDF GERADO COM SUCESSO! -----\n"
 
-if os.path.exists(livro_asc) and not os.path.exists(ignore_html_file):
+if os.path.exists(livro_asc) and build_html:
   output = output +  "\nGerando o livro (asciidoc - html chunked)...\n"
   chunkedp = sub.Popen([A2X_BIN, "-v", "-f","chunked", "--icons",  "-a livro-html", "livro.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
   chunkedp.wait()
   output = output + urllib.unquote(chunkedp.stdout.read())
-
-
-if os.path.exists(slides_asc) and not os.path.exists(ignore_slide_file):
-  slides_html = livro_dir + "slides.html"
-  if os.path.exists(slides_html):
-    output = output + "\nRemovendo slides anteriores...\n"
-    os.remove(slides_html)
-
-
-  output = output +   "\nGerando slides do livro (asciidoc - html slides)...\n"
-  asciidocp = sub.Popen([ASCIIDOC_BIN, "-v", "-b","slidy", "slides.asc"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
-  asciidocp.wait()
-  output = output + urllib.unquote(asciidocp.stdout.read())
-  # FIXME: incluir os arquivos *.png do diretorio
-  # http://stackoverflow.com/questions/9997048/python-subprocess-wildcard-usage
-  # zipp = sub.Popen(["zip", "-v","-r", "slides.zip","images", "slides.html"], cwd=diretorio_do_projeto + "livro", stdout=sub.PIPE, stderr=sub.STDOUT)
-  # zipp.wait()
-  # output = output + urllib.unquote(zipp.stdout.read())
-
-
-if os.path.exists(livro_tex):
-  livro_dir =diretorio_do_projeto
-  pdf_file = livro_dir+"livro.pdf"
-  if os.path.exists(pdf_file):
-    output = output + "\nRemovendo versoes anteriores...\n"
-    os.remove(pdf_file)
-
-
-  output = output +  "\nGerando o livro (latex - pdf)...\n"
-
-  pdflatexp = sub.Popen(["pdflatex", "livro.tex"], cwd=diretorio_do_projeto, stdout=sub.PIPE, stderr=sub.STDOUT)
-  pdflatexp.wait()
-  output = output + urllib.unquote(pdflatexp.stdout.read())
+  if os.path.exists(chunked_dir) and build_html:
+    status = status + "\n ----- LIVRO HTML GERADO COM SUCESSO! -----\n"
 
 link_books = "../books/"
 link_usuario  = link_books + usuario + "/"

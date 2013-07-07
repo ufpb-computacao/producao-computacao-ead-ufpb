@@ -8,19 +8,21 @@
 <p>Para compreender o workflow do processo consulte 
 <a href="../books/edusantana/producao-computacao-ead-ufpb/livro/livro.chunked/index.html" target="_blank">o Manual</a>.</p>
 
-
 <form name="myform" action="./cgi-bin/pull-pdf.py" method="POST">
 
   <b>Endereço https do repositório do git</b>: </br>https://github.com/edusantana/introducao-a-computacao-livro (exemplo)
   <br  />
   <input name="repositorio" type="text" size="80" />
-  <br  /><br/>
+<input type="checkbox" name="pdf"  value="pdf" checked />PDF
+<input type="checkbox" name="html" value="html" />HTML
+<div>
 <!--
   <input type="radio" name="acao" value="pull-pdf" checked>Baixar atualização e Gerar PDF<br/>
   <input type="radio" name="acao" value="delete">Apagar todos projetos do usuário<br/>
   <br  />
 -->
   <input type="submit" value="Gerar PDF, HTML e Slides">
+</div>
 </form>
 
 <h2>Gerar PDF de Capítulo</h2>

@@ -3,5 +3,4 @@
 Manual on-line :: 
   http://producao.virtual.ufpb.br/books/edusantana/producao-computacao-ead-ufpb/livro/livro.chunked/index.html (recomendado)
 
-Manual em PDF ::
-  http://producao.virtual.ufpb.br/books/edusantana/producao-computacao-ead-ufpb/livro/livro.pdf (atualizado com frequência)
+

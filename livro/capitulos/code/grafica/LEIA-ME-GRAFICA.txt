@@ -1,0 +1,12 @@
+Este CD-ROM contém os arquivos necessários para a impressão do(s) livro(s).
+
+* O(s) livro(s) estão organizados em pastas
+* O nome da pasta corresponde ao [nome-do-livro]-[versão-do-livro]
+* Cada pasta possui:
+** Um arquivo 'livro.pdf' que corresponde ao livro
+** Um diretório 'capa' contendo a arte da capa do livro
+
+Em caso de dúvia contactar:
+
+Nome do responsável <email@mail.com> 
+Telefone: (XX) XXXX-XXXX (operadora)

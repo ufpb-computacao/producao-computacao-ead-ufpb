@@ -1,0 +1,35 @@
+MENSAGEM=$1
+
+if [ -f "ignore-pdf" ]
+then
+    echo Ignorando geração PDF
+else
+    if [ -f livro/livro.asc ] 
+		then
+			echo Iniciando geração do livro - PDF
+			~/ambiente/asciidoc-8.6.8/a2x.py -v -f pdf --icons -a docinfo1 -a lang=pt-BR -d book --dblatex-opts "-T computacao -P latex.babel.language=brazilian" -a livro-pdf livro/livro.asc
+		else
+			echo Arquivo livro/livro.asc não existe.
+		fi
+
+fi
+
+
+if [ -f "ignore-html" ]
+then
+    echo Ignorando geração HTML
+else
+    if [ -f livro/livro.asc ] 
+		then
+			echo hi
+		else
+			echo Arquivo livro/livro.asc não existe.
+		fi
+fi
+
+if [ -f "ignore-slide" ]
+then
+    echo Ignorando geração SLIDE
+else
+    echo the file does not exist
+fi

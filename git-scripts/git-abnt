@@ -1,0 +1,12 @@
+ABNT_ARQUIVO=`git config --get abnt.$1.path`
+OPCOES=`git config --get abnt.$1.options`
+HOOK=`git config --get abnt.$1.hook`
+MENSAGEM=$2
+
+PROJECT_DIR=`git rev-parse --show-toplevel`
+git commit --interactive -m "$MENSAGEM"
+git push
+
+/home/santana/ambiente/abnt-asciidoc-8.6.8/a2x.py -v -f pdf $OPCOES $PROJECT_DIR/$ABNT_ARQUIVO
+play ~/beep.mp3
+

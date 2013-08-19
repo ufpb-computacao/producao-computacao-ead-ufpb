@@ -1,0 +1,1 @@
+grep -A 3 -B 0 -n -r -e TODO -e FIXME -e XXX -e REV .

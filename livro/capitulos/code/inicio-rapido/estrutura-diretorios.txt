@@ -1,0 +1,40 @@
+.
+|-- cgi/
+|-- dblatex-computacao-ufpb/
+|-- estrutura-inicial/ <1>
+|-- git-scripts/
+|-- livro/
+|   |-- capitulos/ <2>
+|   |   |-- code/ <3>
+|   |   |-- asciidoc.asc
+|   |   |-- capacitacao.asc
+|   |   |-- comunicacoes.asc
+|   |   |-- curso.asc
+|   |   |-- faq.asc
+|   |   |-- git.asc
+|   |   |-- graficos.asc
+|   |   |-- impl-ambiente-offline.asc
+|   |   |-- impl-novo-livro.asc
+|   |   |-- impl-versoes-gerenciamento.asc
+|   |   |-- iniciando-livro.asc
+|   |   |-- inicio-rapido.asc <4>
+|   |   |-- instalacao-ferramentas.asc
+|   |   |-- outras.asc
+|   |   |-- pessoas.asc <5>
+|   |   |-- portugues.asc
+|   |   |-- projetos.asc
+|   |   |-- revisao-conteudo-anterior.asc
+|   |   |-- usuario.asc
+|   |   |-- videos.asc
+|   |   `-- visao-geral.asc
+|   |-- images/ <6>
+|   |-- videos/ <7>
+|   |   |-- inicio-rapido.html
+|   |   |-- install-github-windows.html
+|   |   `-- notepad_plugin.html
+|   |-- docinfo.xml <8>
+|   `-- livro.asc <9>
+|-- ignore-pdf
+|-- ignore-slide
+|-- README.asciidoc
+`-- TODO.asc

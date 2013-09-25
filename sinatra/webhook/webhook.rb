@@ -1,8 +1,6 @@
+require 'rubygems'
 require 'sinatra'
 require 'logger'
-
-set :port, 3238
-
 
 post '/' do
   push = JSON.parse(params[:payload])

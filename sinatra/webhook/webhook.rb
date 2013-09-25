@@ -12,3 +12,9 @@ post '/' do
   logger.info "I got some JSON: #{push.inspect}"
   "I got some JSON: #{push.inspect}"
 end
+
+get '/' do
+  logger.info 'recebido algo'
+  'xx'
+end
+

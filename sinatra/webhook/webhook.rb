@@ -1,10 +1,10 @@
 require 'sinatra'
 require 'logger'
 
-set :port, 3238
+set :port, 9238
 
 
-post '/' do
+get '/hi' do
   push = JSON.parse(params[:payload])
 	# Save a string to a file.
 	myStr = "This is a test"
@@ -14,3 +14,9 @@ post '/' do
   logger.info "I got some JSON: #{push.inspect}"
   "I got some JSON: #{push.inspect}"
 end
+
+get '/' do
+  logger.info 'recebido algo'
+  'xx'
+end
+

@@ -1,7 +1,8 @@
 MENSAGEM=$1
 
-git commit -a -m "$MENSAGEM"; git push; 
+git commit -a -m "$MENSAGEM"
+git push
 curl http://producao.virtual.ufpb.br/cgi-bin/pull-pdf.py?repositorio=`git config --get remote.origin.url`
-rm -rf livro.pdf; 
+rm -rf livro.pdf
 wget -nv `git config --get livro.url`
 play ~/beep.mp3

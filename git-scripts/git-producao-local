@@ -1,0 +1,19 @@
+# Configurações necessárias:
+
+# Baixar o livro após a geração (configuração por projeto)
+# git config livro.url http://producao.virtual.ufpb.br/books/edusantana/playground-asciidoc/livro/livro.pdf
+
+# Comando para executar um beep ao final da execução (opcional)
+# git config --global beep.player /usr/bin/play
+# git config --global beep.file ~/beep.mp3
+
+REPOSITORIO_PATH=`git rev-parse --show-toplevel`
+PORTA=4567
+BRANCH="master"
+
+git commit --interactive
+git rebase --interactive
+
+#curl localhost:$PORTA/localbuild?repo_dir="$REPOSITORIO_PATH"&branch="$BRANCH"
+curl -d repo_dir=`git rev-parse --show-toplevel` -d branch=master -d user=$USER -d treeish="HEAD" localhost:4567/localbuild
+#`git config --get beep.player` `git config --get beep.file`

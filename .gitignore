@@ -14,3 +14,6 @@ livro/livro.tex
 livro/*.asc~
 livro/capitulos/*.asc~
 
+/log.txt
+releases
+

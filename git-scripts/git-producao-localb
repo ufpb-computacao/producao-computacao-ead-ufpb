@@ -86,5 +86,5 @@ git archive --prefix="releases/$BRANCH/" $BRANCH | tar -x
 
 # cd $REPOSITORIO_PATH/releases/$BRANCH/livro
 
-~/ambiente/asciidoc-8.6.8/a2x.py -v -f pdf --icons -a docinfo1 -a lang=pt-BR -d book --dblatex-opts "-T computacao -P latex.babel.language=brazilian" -a livro-pdf releases/$BRANCH/livro/livro.asc > log.txt
+~/ambiente/asciidoc-8.6.8/a2x.py -v -f pdf --icons -a docinfo1 -a lang=pt-BR -d book --dblatex-opts "-T computacao -P latex.babel.language=brazilian"  -a livro-pdf releases/$BRANCH/livro/livro.asc > log.txt
 cat log.txt

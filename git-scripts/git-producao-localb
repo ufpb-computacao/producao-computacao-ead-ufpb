@@ -1,6 +1,8 @@
 #!/bin/bash
 REPOSITORIO_PATH=`git rev-parse --show-toplevel`
 BRANCH="master"
+PRE_LOCAL_EXTRACT_CMD=`git config --get producao.preLocalExtract`
+PRE_LOCAL_BUILD_CMD=`git config --get producao.preLocalBuild`
 
 function usage {
 	echo "Usage:"
@@ -12,6 +14,12 @@ function usage {
 	echo "  -r	Execute interactive rebase before"
 	echo "  -b	The branch to be used to build the book"
 	echo "  -h	This help message"
+	echo
+	echo "Git configs:"
+	echo
+	echo "producao.preLocalExtract: command to be executed before extract tag"
+	echo "producao.preLocalBuild: command to be executed before build"
+	echo
 }
 
 function commit {
@@ -80,11 +88,15 @@ fi
 
 echo C = $COMMIT R = $REBASE B= $BRANCH
 
+$PRE_LOCAL_EXTRACT_CMD
+
 cd $REPOSITORIO_PATH
 rm -rf releases/$BRANCH
 git archive --prefix="releases/$BRANCH/" $BRANCH | tar -x
 
 # cd $REPOSITORIO_PATH/releases/$BRANCH/livro
 
-~/ambiente/asciidoc-8.6.8/a2x.py -v -f pdf --icons -a docinfo1 -a lang=pt-BR -d book --dblatex-opts "-T computacao -P latex.babel.language=brazilian"  -a livro-pdf releases/$BRANCH/livro/livro.asc > log.txt
+$PRE_LOCAL_BUILD_CMD
+
+~/ambiente/asciidoc-8.6.8/a2x.py -v -f pdf --icons -a docinfo1 -a lang=pt-BR -d book --dblatex-opts "-T computacao -P latex.babel.language=brazilian"  -a livro-pdf releases/$BRANCH/livro/livro.asc > releases/$BRANCH/livro/log.txt
 cat log.txt

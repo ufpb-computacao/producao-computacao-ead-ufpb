@@ -3,17 +3,20 @@ REPOSITORIO_PATH=`git rev-parse --show-toplevel`
 BRANCH="master"
 PRE_LOCAL_EXTRACT_CMD=`git config --get producao.preLocalExtract`
 PRE_LOCAL_BUILD_CMD=`git config --get producao.preLocalBuild`
+SEJDA_BIN="/home/santana/ambiente/sejda/bin/sejda-console"
 
 function usage {
 	echo "Usage:"
-	echo " $(basename $0) [-c [-m commit-message]] [-r] [-b branch]"
+	echo " $(basename $0) [-c] [-r] [-b branch] [-s] [-t] [-u]"
 	echo
 	echo "Flags:"
-	echo "  -a	Execute commit -a"
+	echo "  -h	This help message"
 	echo "  -c	Execute interactive commit before"
 	echo "  -r	Execute interactive rebase before"
-	echo "  -b	The branch to be used to build the book"
-	echo "  -h	This help message"
+	echo "  -b	The branch to be used to produce the book"
+	echo "  -s	If PDF produced open then book"
+	echo "  -t	Use test file instead"
+	echo "  -u	Don't produce the PDF, you can use it with -s and -t"
 	echo
 	echo "Git configs:"
 	echo
@@ -39,7 +42,7 @@ function rebase {
 	git rebase --interactive
 }
 
-while getopts “hacm:grb:” OPTION
+while getopts “hcgrb:tsu” OPTION
 do
      case $OPTION in
          h)
@@ -55,12 +58,22 @@ do
          g)
              GITG=1
              ;;
+         u)
+             DONT_PRODUCE_PDF=1
+             ;;
          r)
              REBASE=1
              ;;
          b)
              BRANCH=$OPTARG
              ;;
+         s)
+             SUCESS_OPEN=1
+             ;;
+         t)
+             TEST_FILE=1
+             ;;
+
          ?)
              usage
              exit
@@ -87,16 +100,56 @@ then
 fi
 
 echo C = $COMMIT R = $REBASE B= $BRANCH
-
+LOG=releases/$BRANCH/livro/log.txt
 $PRE_LOCAL_EXTRACT_CMD
 
 cd $REPOSITORIO_PATH
-rm -rf releases/$BRANCH
-git archive --prefix="releases/$BRANCH/" $BRANCH | tar -x
 
 # cd $REPOSITORIO_PATH/releases/$BRANCH/livro
 
 $PRE_LOCAL_BUILD_CMD
+if [[ $TEST_FILE == 1 ]]
+then
+	target=test.adoc
+	target_pdf=test.pdf
+else
+  target=livro.asc
+  target_pdf=livro.pdf
+fi
 
-~/ambiente/asciidoc-8.6.8/a2x.py -v -f pdf --icons -a docinfo1 -a lang=pt-BR -d book --dblatex-opts "-T computacao -P latex.babel.language=brazilian"  -a livro-pdf releases/$BRANCH/livro/livro.asc > releases/$BRANCH/livro/log.txt
-cat log.txt
+
+if [[ $DONT_PRODUCE_PDF != 1 ]]
+then
+    echo "Producing pdf..."
+    rm -rf releases/$BRANCH
+    git archive --prefix="releases/$BRANCH/" $BRANCH | tar -x
+    (cd releases/$BRANCH/livro/ && ~/ambiente/asciidoc-8.6.8/a2x.py -v -f pdf --icons -a docinfo1 -a lang=pt-BR -d book --dblatex-opts "-T computacao -P latex.babel.language=brazilian"  -a livro-pdf $target > log.txt)
+else
+    echo "INFO: Utilizando arquivos produzido anteriormente."
+fi
+
+if [[ $TEST_FILE != 1 ]]
+then
+  if [ -f releases/$BRANCH/livro/editora/editora.pdf ]
+  then
+    echo "Adicionando editora.pdf..." >> $LOG
+    mv releases/$BRANCH/livro/livro.pdf releases/$BRANCH/livro/temp.pdf
+    $SEJDA_BIN merge -f releases/$BRANCH/livro/editora/editora.pdf releases/$BRANCH/livro/temp.pdf -o releases/$BRANCH/livro/livro.pdf >> $LOG
+  fi
+fi
+
+if [[ $DONT_PRODUCE_PDF != 1 ]]
+then
+    cat $LOG
+fi
+
+if [ -f releases/$BRANCH/livro/$target_pdf ]
+then
+  echo "Livro gerado com sucesso: releases/$BRANCH/livro/$target_pdf"
+  if [[ $SUCESS_OPEN == 1 ]]
+  then
+    xdg-open releases/$BRANCH/livro/$target_pdf
+  fi
+fi
+
+

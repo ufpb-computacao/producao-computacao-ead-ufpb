@@ -16,6 +16,7 @@ function usage {
 	echo "  -b	The branch to be used to produce the book"
 	echo "  -s	If PDF produced open then book"
 	echo "  -t	Use test file instead"
+	echo "  -g	Use livro/image/tela-graphiz.dot to generate image"
 	echo "  -u	Don't produce the PDF, you can use it with -s and -t"
 	echo
 	echo "Git configs:"
@@ -31,11 +32,6 @@ function commit {
 
 function commit_a {
 	git commit -a
-}
-
-
-function run_gitg {
-	gitg
 }
 
 function rebase {
@@ -56,7 +52,7 @@ do
              COMMIT=1
              ;;
          g)
-             GITG=1
+             GRAPHIZ=1
              ;;
          u)
              DONT_PRODUCE_PDF=1
@@ -81,11 +77,6 @@ do
      esac
 done
 
-if [[ $GITG == 1 ]]
-then
-	run_gitg
-fi
-
 if [[ $COMMIT_A == 1 ]]
 then
 	commit_a
@@ -104,6 +95,12 @@ LOG=releases/$BRANCH/livro/log.txt
 $PRE_LOCAL_EXTRACT_CMD
 
 cd $REPOSITORIO_PATH
+
+if [[ $GRAPHIZ == 1 ]]
+then
+  dot -T eps -o livro/images/graphiz-tela.eps livro/images/graphiz.dot
+  exit
+fi
 
 # cd $REPOSITORIO_PATH/releases/$BRANCH/livro
 

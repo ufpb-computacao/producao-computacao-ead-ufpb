@@ -9,6 +9,7 @@ livro/*.zip
 livro/livro.xml
 livro/slides.html
 livro/livro.tex
+livro/images/graphiz.eps
 # TODO ignorar recursivamente *.asc~
 # Alguém adicionou por engano, portanto pode acontecer novamente.
 livro/*.asc~

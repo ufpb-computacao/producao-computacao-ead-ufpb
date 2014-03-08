@@ -3,9 +3,20 @@
   rudder-doc-docinfo.xml
   DocBook document information file for rudder-doc.txt.
 -->
-  <edition>ed. 1.0</edition>
+  <edition>v1.b.0</edition>
 
   <revhistory>
+
+    <revision>
+      <revnumber>v1.b.0</revnumber>
+      <date>Março 2013</date>
+      <authorinitials>Eduardo de Santana Medeiros Alexandre</authorinitials>
+      <revremark>
+* Atualização de como alterar o título do livro (falta issue)
+      </revremark>
+    </revision>
+
+
     <revision>
       <revnumber>v1.0</revnumber>
       <date>Março 2013</date>

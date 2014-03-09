@@ -1,0 +1,11 @@
+#!/bin/bash
+REPOSITORIO_PATH=`git rev-parse --show-toplevel`
+RELEASE_DIR=releases/current
+
+cd $REPOSITORIO_PATH
+if [ -f $RELEASE_DIR ] 
+then 
+  rm -rf $RELEASE_DIR 
+fi
+git archive --format=tar --prefix=$RELEASE_DIR/ HEAD | (tar xf -) 
+

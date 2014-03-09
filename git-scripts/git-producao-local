@@ -1,19 +1,71 @@
-# Configurações necessárias:
+#!/bin/bash
+  
+function usage {
+	echo "Usage:"
+	echo " $(basename $0) [-c] [-r] [-t] [-o] [-h]"
+	echo
+	echo "Flags:"
+	echo "  -h	This help message"
+	echo "  -c	Run commit --interactive before"
+	echo "  -r	Run rebase --interactive before"
+	echo "  -b	Build the PDF book"
+	echo "  -t	Use test file instead, must be used wih -b"
+	echo "  -o	Open produced PDF"
+	echo
+}
 
-# Baixar o livro após a geração (configuração por projeto)
-# git config livro.url http://producao.virtual.ufpb.br/books/edusantana/playground-asciidoc/livro/livro.pdf
+while getopts "hbcrto" OPTION
+do
+     case $OPTION in
+         h)
+             usage
+             exit 1
+             ;;
+         b)
+             BUILD_PDF=1
+             ;;
+         c)
+             COMMIT=1
+             ;;
+         r)
+             REBASE=1
+             ;;
+         o)
+             OPEN_PDF=1
+             ;;
+         t)
+             USE_TEST_FILE=1
+             ;;
 
-# Comando para executar um beep ao final da execução (opcional)
-# git config --global beep.player /usr/bin/play
-# git config --global beep.file ~/beep.mp3
+         ?)
+             usage
+             exit
+             ;;
+     esac
+done
 
-REPOSITORIO_PATH=`git rev-parse --show-toplevel`
-PORTA=4567
-BRANCH="master"
+if [[ $COMMIT == 1 ]]
+then
+	git commit --interactive
+fi
 
-git commit --interactive
-git rebase --interactive
+if [[ $REBASE == 1 ]]
+then
+	git rebase --interactive
+fi
 
-#curl localhost:$PORTA/localbuild?repo_dir="$REPOSITORIO_PATH"&branch="$BRANCH"
-curl -d repo_dir=`git rev-parse --show-toplevel` -d branch=master -d user=$USER -d treeish="HEAD" localhost:4567/localbuild
-#`git config --get beep.player` `git config --get beep.file`
+if [[ $BUILD_PDF == 1 ]]
+then
+	if [[ $USE_TEST_FILE == 1 ]]
+	then
+	  git producao-local-build-archived -t
+	else
+	  git producao-local-build-archived
+	fi
+fi
+
+if [[ $OPEN_PDF == 1 ]]
+then
+	git producao-local-open-pdf
+fi
+

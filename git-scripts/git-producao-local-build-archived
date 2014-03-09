@@ -1,0 +1,58 @@
+#!/bin/bash
+REPOSITORIO_PATH=`git rev-parse --show-toplevel`
+RELEASE_DIR=releases/current
+LOG=$RELEASE_DIR/livro/log.txt
+SEJDA_BIN="/home/santana/ambiente/sejda/bin/sejda-console"
+
+cd $REPOSITORIO_PATH
+
+function usage {
+	echo "Usage:"
+	echo " $(basename $0) [-t]"
+	echo
+	echo "Flags:"
+	echo "  -t	Use test file instead"
+	echo
+}
+
+
+while getopts "t" OPTION
+do
+     case $OPTION in
+         t)
+             USE_TEST_FILE=1
+             ;;
+
+         ?)
+             usage
+             exit
+             ;;
+     esac
+done
+
+if [[ $USE_TEST_FILE == 1 ]]
+then
+	source=test.adoc
+	source_pdf=test.pdf
+else
+  source=livro.asc
+  source_pdf=livro.pdf
+fi
+
+(cd $RELEASE_DIR/livro && ~/ambiente/asciidoc-8.6.8/a2x.py -v -f pdf --icons -a docinfo1 -a lang=pt-BR -d book --dblatex-opts "-T computacao -P latex.babel.language=brazilian"  -a livro-pdf $source > log.txt)
+
+# Concatenando arquivo editora
+# TODO.
+
+# if [[ $TEST_FILE != 1 ]]
+# then
+#   if [ -f $RELEASE_DIR/livro/editora/editora.pdf ]
+#   then
+#     echo "Adicionando editora.pdf..." >> $LOG
+#     mv $RELEASE_DIR/livro/livro.pdf $RELEASE_DIR/livro/temp.pdf
+#     $SEJDA_BIN merge -f $RELEASE_DIR/livro/editora/editora.pdf $RELEASE_DIR/livro/temp.pdf -o $RELEASE_DIR/livro/livro.pdf >> $LOG
+#   fi
+# fi
+
+cat $LOG
+

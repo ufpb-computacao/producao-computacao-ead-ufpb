@@ -1,0 +1,24 @@
+#!/bin/bash
+REPOSITORIO_PATH=`git rev-parse --show-toplevel`
+RELEASE_DIR=releases/current
+OPEN_PDF_CMD=xdg-open
+
+cd $REPOSITORIO_PATH
+
+LIVRO_PDF=$RELEASE_DIR/livro/livro.pdf
+TEST_PDF=$RELEASE_DIR/livro/test.pdf
+
+if [ -f $LIVRO_PDF ]
+then
+  echo Opening $LIVRO_PDF ...
+  $OPEN_PDF_CMD $LIVRO_PDF
+fi
+
+if [ -f $TEST_PDF ]
+then
+  echo Opening $TEST_PDF ...
+  $OPEN_PDF_CMD $TEST_PDF
+fi
+
+
+

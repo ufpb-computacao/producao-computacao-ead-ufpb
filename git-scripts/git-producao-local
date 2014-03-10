@@ -56,6 +56,7 @@ fi
 
 if [[ $BUILD_PDF == 1 ]]
 then
+  git-producao-local-archive
 	if [[ $USE_TEST_FILE == 1 ]]
 	then
 	  git producao-local-build-archived -t

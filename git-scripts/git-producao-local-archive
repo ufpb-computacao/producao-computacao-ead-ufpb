@@ -3,9 +3,15 @@ REPOSITORIO_PATH=`git rev-parse --show-toplevel`
 RELEASE_DIR=releases/current
 
 cd $REPOSITORIO_PATH
-if [ -f $RELEASE_DIR ] 
-then 
+
+# Apagando diretório anterior, caso exista
+if [ -d $RELEASE_DIR ] 
+then
+  echo
+  echo Apagando release anterior: $RELEASE_DIR 
   rm -rf $RELEASE_DIR 
+  echo
 fi
+
 git archive --format=tar --prefix=$RELEASE_DIR/ HEAD | (tar xf -) 
 

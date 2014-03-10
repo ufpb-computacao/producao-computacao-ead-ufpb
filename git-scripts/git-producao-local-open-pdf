@@ -21,4 +21,8 @@ then
 fi
 
 
-
+if ! [ -f $TEST_PDF ] && ! [ -f $LIVRO_PDF ]
+then
+  echo "Cannot find at $TEST_PDF or $LIVRO_PDF at $REPOSITORIO_PATH"
+  echo "Try run: git producao-local -b"
+fi

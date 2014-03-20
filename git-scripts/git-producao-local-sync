@@ -1,0 +1,11 @@
+#!/bin/bash
+REPOSITORIO_PATH=`git rev-parse --show-toplevel`
+RELEASE_DIR=releases/current
+
+cd $REPOSITORIO_PATH
+
+mkdir -p $RELEASE_DIR/livro
+
+rsync -r --delete livro/ $RELEASE_DIR/livro
+
+echo Sincronização concluída: $RELEASE_DIR/livro

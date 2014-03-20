@@ -2,11 +2,12 @@
   
 function usage {
 	echo "Usage:"
-	echo " $(basename $0) [-c] [-r] [-t] [-o] [-h]"
+	echo " $(basename $0) options"
 	echo
-	echo "Flags:"
+	echo "options:"
 	echo "  -h	This help message"
 	echo "  -c	Run commit --interactive before"
+	echo "  -l	Run local sync instead of git-archive during the build, requires -b"
 	echo "  -r	Run rebase --interactive before"
 	echo "  -b	Build the PDF book"
 	echo "  -t	Use test file instead, must be used wih -b"
@@ -14,7 +15,7 @@ function usage {
 	echo
 }
 
-while getopts "hbcrto" OPTION
+while getopts "hbclrto" OPTION
 do
      case $OPTION in
          h)
@@ -26,6 +27,9 @@ do
              ;;
          c)
              COMMIT=1
+             ;;
+         l)
+             LOCAL_SYNC=1
              ;;
          r)
              REBASE=1
@@ -56,7 +60,12 @@ fi
 
 if [[ $BUILD_PDF == 1 ]]
 then
-  git-producao-local-archive
+  if [[ $LOCAL_SYNC == 1 ]] 
+  then
+    git-producao-local-sync
+  else
+    git-producao-local-archive
+  fi
 	if [[ $USE_TEST_FILE == 1 ]]
 	then
 	  git producao-local-build-archived -t

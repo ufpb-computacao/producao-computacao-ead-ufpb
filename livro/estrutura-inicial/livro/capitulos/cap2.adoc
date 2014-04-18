@@ -1,13 +1,13 @@
 == Novo capítulo
 
 .Objetivos do capítulo
-____________________
+____
 Ao final deste capítulo você deverá ser capaz de:
 
 * objetivo 1
 * objetivo 2
 * objetivo N
-____________________
+____
 
 Neste lugar você deve apresentar o conteúdo em forma de diálogo.
 

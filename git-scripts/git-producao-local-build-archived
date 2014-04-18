@@ -39,7 +39,7 @@ else
   source_pdf=livro.pdf
 fi
 
-(cd $RELEASE_DIR/livro && ~/ambiente/asciidoc-8.6.8/a2x.py -v -f pdf --icons -a docinfo1 -a lang=pt-BR -d book --dblatex-opts "-T computacao -P latex.babel.language=brazilian"  -a livro-pdf $source > log.txt)
+(cd $RELEASE_DIR/livro && ~/ambiente/asciidoc/a2x.py -v -f pdf --icons -a docinfo1 -a edition=`git describe` -a lang=pt-BR -d book --dblatex-opts "-T computacao -P latex.babel.language=brazilian"  -a livro-pdf $source > log.txt)
 
 # Concatenando arquivo editora
 # TODO.

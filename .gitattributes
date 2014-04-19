@@ -2,10 +2,14 @@
 *.adoc text
 *.asciidoc text
 *.md text
-
-
-Makefile text
+*.txt text
 *.c text
 *.h text
 *.out text
+*.html text
+*.xml text
+*.dot text
 *.svg binary
+*.eps binary
+*.jpg binary
+*.png binary

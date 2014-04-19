@@ -1,0 +1,132 @@
+#!/bin/bash
+REPOSITORIO_PATH=`git rev-parse --show-toplevel`
+branch=`git rev-parse --abbrev-ref HEAD`
+
+
+function usage {
+	echo "Usage:"
+	echo " $(basename $0) [-s server] [-b branch]"
+	echo
+	echo "Flags:"
+	echo "  -a	Execute commit -a"
+	echo "  -c	Execute interactive commit before"
+	echo "  -r	Execute interactive rebase before"
+	echo "  -b	The branch to be used to build the book"
+	echo "  -h	This help message"
+}
+
+# Execute getopt
+ARGS=`getopt -o "123:" -l "one,two,three:" \
+      -n "getopt.sh" -- "$@"`
+ 
+#Bad arguments
+if [ $? -ne 0 ];
+then
+  exit 1
+fi
+ 
+# A little magic
+eval set -- "$ARGS"
+ 
+# Now go through all the options
+while true;
+do
+  case "$1" in
+    -1|--one)
+      echo "Uno"
+      shift;;
+ 
+    -2|--two)
+      echo "Dos"
+      shift;;
+ 
+    -3|--three)
+      echo "Tres"
+ 
+      # We need to take the option argument
+      if [ -n "$2" ];
+      then
+        echo "Argument: $2"
+      fi
+      shift 2;;
+ 
+    --)
+      shift
+      break;;
+  esac
+done
+
+function commit {
+	git commit --interactive
+}
+
+function commit_a {
+	git commit -a
+}
+
+
+function run_gitg {
+	gitg
+}
+
+function rebase {
+	git rebase --interactive
+}
+
+while getopts “hacm:grb:” OPTION
+do
+     case $OPTION in
+         h)
+             usage
+             exit 1
+             ;;
+         a)
+             COMMIT_A=1
+             ;;
+         c)
+             COMMIT=1
+             ;;
+         g)
+             GITG=1
+             ;;
+         r)
+             REBASE=1
+             ;;
+         b)
+             BRANCH=$OPTARG
+             ;;
+         ?)
+             usage
+             exit
+             ;;
+     esac
+done
+
+if [[ $GITG == 1 ]]
+then
+	run_gitg
+fi
+
+if [[ $COMMIT_A == 1 ]]
+then
+	commit_a
+elif [[ $COMMIT == 1 ]]
+then
+	commit
+fi
+
+if [[ $REBASE == 1 ]]
+then
+	rebase
+fi
+
+echo C = $COMMIT R = $REBASE B= $BRANCH
+
+cd $REPOSITORIO_PATH
+rm -rf releases/$BRANCH
+git archive --prefix="releases/$BRANCH/" $BRANCH | tar -x
+
+# cd $REPOSITORIO_PATH/releases/$BRANCH/livro
+
+~/ambiente/asciidoc-8.6.8/a2x.py -v -f pdf --icons -a docinfo1 -a lang=pt-BR -d book --dblatex-opts "-T computacao -P latex.babel.language=brazilian"  -a livro-pdf releases/$BRANCH/livro/livro.asc > log.txt
+cat log.txt

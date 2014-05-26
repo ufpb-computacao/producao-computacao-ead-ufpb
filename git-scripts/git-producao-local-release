@@ -1,0 +1,50 @@
+#!/bin/bash
+  
+function usage {
+	echo "Usage:"
+	echo " $(basename $0) options"
+	echo
+	echo "options:"
+	echo "  -h      This help message"
+	echo "  -c      Run commit --interactive before"
+	echo "  -l      Run local sync instead of git-archive during the build, requires -b"
+	echo "  -r      Run rebase --interactive before"
+	echo "  -b      Build the PDF book"
+	echo "  -t TAG  The tag that will be used to build from"
+	echo "  -o      Open produced PDF"
+	echo
+}
+
+while getopts "t:h" OPTION
+do
+     case $OPTION in
+         h)
+             usage
+             exit 1
+             ;;
+         b)
+             BUILD_PDF=1
+             ;;
+         c)
+             COMMIT=1
+             ;;
+         l)
+             LOCAL_SYNC=1
+             ;;
+         r)
+             REBASE=1
+             ;;
+         o)
+             OPEN_PDF=1
+             ;;
+         t)
+             TAG=$OPTARG
+             ;;
+         ?)
+             usage
+             exit
+             ;;
+     esac
+done
+
+echo git producao-local-archive -t $TAG

@@ -1,8 +1,9 @@
 == Novo capítulo
 
-:online: {gitrepo}/blob/master/livro/capitulos/code/cap1
-:local: code/cap1
-:img: images/cap1
+:cap: cap1
+:online: {gitrepo}/blob/master/livro/capitulos/code/{cap}
+:local: {code_dir}/{cap}
+:img: {img_dir}/{cap}
 
 
 .Objetivos do capítulo
@@ -36,12 +37,14 @@ Texto da sua seção.
 
 Revisão do que foi aprendido.
 
-Reserve o último parágrafo para realizar uma *ponte* para o próximo capítulo.
+Reserve o último parágrafo para realizar uma *ponte* para o próximo
+capítulo.
 
 // TODO: Fazer ponte para o próximo capítulo.
 
 === Atividades
 
+// Caso existam muitas 
 
 . Texto da atividade.
 

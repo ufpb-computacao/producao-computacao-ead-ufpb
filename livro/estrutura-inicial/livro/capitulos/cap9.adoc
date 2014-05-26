@@ -1,8 +1,10 @@
 == Novo capítulo
 
-:online: {gitrepo}/blob/master/livro/capitulos/code/cap9
-:local: code/cap9
-:img: images/cap9
+:cap: cap9
+:online: {gitrepo}/blob/master/livro/capitulos/code/{cap}
+:local: {code_dir}/{cap}
+:img: {img_dir}/{cap}
+
 
 .Objetivos do capítulo
 ____

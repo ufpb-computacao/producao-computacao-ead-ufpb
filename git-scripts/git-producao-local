@@ -12,10 +12,11 @@ function usage {
 	echo "  -b	Build the PDF book"
 	echo "  -t	Use test file instead, must be used wih -b"
 	echo "  -o	Open produced PDF"
+	echo "  -x	Open livro.xml file"
 	echo
 }
 
-while getopts "hbclrto" OPTION
+while getopts "hbclr:tox" OPTION
 do
      case $OPTION in
          h)
@@ -28,11 +29,15 @@ do
          c)
              COMMIT=1
              ;;
+         x)
+             XML_OPEN=1
+             ;;
          l)
              LOCAL_SYNC=1
              ;;
          r)
-             REBASE=1
+             RELEASE=1
+             TAG=$OPTARG
              ;;
          o)
              OPEN_PDF=1
@@ -47,6 +52,11 @@ do
              ;;
      esac
 done
+
+if [[ $XML_OPEN == 1 ]]
+then
+	git producao-local-open-xml
+fi
 
 if [[ $COMMIT == 1 ]]
 then
@@ -72,6 +82,11 @@ then
 	else
 	  git producao-local-build-archived
 	fi
+fi
+
+if [[ $RELEASE == 1 ]]
+then
+    echo git-producao-local-archive -t $TAG
 fi
 
 if [[ $OPEN_PDF == 1 ]]

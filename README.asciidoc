@@ -2,5 +2,8 @@
 
 Manual on-line :: 
   http://producao.virtual.ufpb.br/books/edusantana/producao-computacao-ead-ufpb/livro/livro.chunked/index.html (recomendado)
+  
+
+This is the template of all our new books:: https://github.com/edusantana/novo-livro
 
 

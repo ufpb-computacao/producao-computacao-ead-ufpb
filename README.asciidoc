@@ -1,9 +1,11 @@
 == Processo de Produção do curso Licenciatura em Computação a distância da UFPB
 
+This book needs updates!
+
 Manual on-line :: 
   http://producao.virtual.ufpb.br/books/edusantana/producao-computacao-ead-ufpb/livro/livro.chunked/index.html (recomendado)
   
 
-This is the template of all our new books:: https://github.com/edusantana/novo-livro
+This is the template of all our new books:: https://github.com/edusantana/asciidoc-book-template-with-rake-and-github
 
 

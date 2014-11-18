@@ -1,3 +1,5 @@
+* text=auto
+
 *.asc text
 *.adoc text
 *.asciidoc text
@@ -9,7 +11,7 @@
 *.html text
 *.xml text
 *.dot text
-*.svg binary
+*.svg eol=lf
 *.eps binary
 *.jpg binary
 *.png binary

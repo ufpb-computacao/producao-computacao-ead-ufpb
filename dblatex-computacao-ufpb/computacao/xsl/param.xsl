@@ -22,7 +22,7 @@
 <!-- Porque não usar twosides: http://tex.stackexchange.com/questions/42063/illogical-twoside-margins -->
 <xsl:param name="latex.class.options">12pt,openright</xsl:param> 
 
-<xsl:param name="latex.hyperparam">colorlinks=false,pdfstartview=FitH</xsl:param>
+<xsl:param name="latex.hyperparam">colorlinks=false,linkcolor=black,pdfstartview=FitH</xsl:param>
 <!-- <xsl:param name="latex.hyperparam">linktocpage,colorlinks=false,linkcolor=black,pdfstartview=FitH</xsl:param> -->
 <xsl:param name="paper.type">a4paper</xsl:param>
 <xsl:param name="page.margin.bottom">1cm</xsl:param>

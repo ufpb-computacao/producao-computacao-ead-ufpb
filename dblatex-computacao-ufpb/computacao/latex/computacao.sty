@@ -27,10 +27,10 @@
 \usepackage{float}       
 \usepackage{footmisc} 
 \usepackage{appendix} 
-
+%\usepackage[cmyk]{xcolor}
 % para possibilitar tabela de conteúdo por capítulo:
 % http://www.ctan.org/tex-archive/help/Catalogue/entries/minitoc.html
-\usepackage{minitoc}
+\usepackage[brazilian]{minitoc}
 
 % Workaround to avoid troubles with accents in \appendixname used as hyperref
 % label: force the label prefix to 'appendix' whatever the lang is
@@ -45,7 +45,7 @@
   \orgrestoreapp
 }
 
-\newcommand{\DBKreleaseinfo}{Working Paper}
+\newcommand{\DBKreleaseinfo}{Rascunho}
 
 \usepackage{dbk_fonts}
 \usepackage{dbk_hyper}
@@ -113,7 +113,7 @@
 
 \ifpdfengine
 \usepackage{pdfpages}
-\usepackage{color}
+\usepackage[cmyk]{xcolor}
 \def\showwatermark#1{%
   \AddToShipoutPicture{
   \AtTextCenter{%
@@ -270,6 +270,10 @@
 % Math support                                
 % --------------------------------------------
 \usepackage{amsmath,amsthm,amsfonts,amsxtra,amsopn}
+\usepackage{mathtools} 
+\usepackage{relsize}
+\usepackage{cancel}
+
 
 % ---------------
 % Document Font  
@@ -489,4 +493,5 @@
     }{}
   }
 }
+
 

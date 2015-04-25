@@ -35,11 +35,20 @@
 
 
 
-<!-- DB2LaTeX requires Palatino like fonts -->
+<!-- DB2LaTeX requires Palatino like fonts 
 <xsl:param name="xetex.font">
   <xsl:text>\setmainfont{URW Palladio L}&#10;</xsl:text>
   <xsl:text>\setsansfont{FreeSans}&#10;</xsl:text>
   <xsl:text>\setmonofont{FreeMono}&#10;</xsl:text>
 </xsl:param>
+-->
+
+<!-- DB2LaTeX requires Palatino like fonts -->
+<xsl:param name="xetex.font">
+  <xsl:text>\setmainfont{FreeSerif}&#10;</xsl:text>
+  <xsl:text>\setsansfont{FreeSans}&#10;</xsl:text>
+  <xsl:text>\setmonofont{FreeMono}&#10;</xsl:text>
+</xsl:param>
+
 
 </xsl:stylesheet>
